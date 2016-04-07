@@ -21,7 +21,8 @@ io.sockets.on('connection', function(socket){
 	console.log('WE ARE USING SOCKETS');
 	console.log(socket.id);
 	socket.on('submitting_form', function(data){
-		console.log('form sumbitted');
-		socket.emit('server_response', {response: 'thank you for submitting!'})
+		console.log('form submitted - ' + data.value.name + " " + data.value.comment);
+		var randNum = Math.floor(Math.random() * (1000 - 1) + 1);
+		socket.emit('server_response', {name: data.value.name, language: data.value.language, comment: data.value.comment, location: data.value.location, id: socket.id, random: randNum})
 	})
 })

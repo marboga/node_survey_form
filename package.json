@@ -1,5 +1,5 @@
 {
-  "name": "Sample_Express",
+  "name": "Survey_form_2",
   "description": "Simple Survey Form",
   "dependencies": {
     "body-parser": "^1.15.0",

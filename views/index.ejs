@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>survey form 2</title>
-<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="style.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
@@ -9,11 +9,18 @@
 		var socket = io.connect();
 		$('#form').submit(function(event){
 			event.preventDefault();
-			$.post()
-			socket.emit('submitting_form', {notice: "notice"});
+			var values = {
+				name : this.name.value,
+				comment: this.comment.value,
+				location: this.location.value,
+				language: this.language.value
+			}
+			console.log(values);
+			socket.emit('submitting_form', {value: values});
 		});
 		socket.on('server_response', function(data){
-			console.log('the server says:' + data.response);
+			console.log('the server says:' + data.random + data.id);
+			$('.response').html("<h3>You gave me the following data:</h3> <p>ID: "+data.id+"</p><p>Name:"+ data.name +"</p><p>Language: "+ data.language +"</p><p>Location: "+ data.location+". </p><p> Your Lucky Number is: "+data.random+"</p>");
 		})
 	});
 </script>
@@ -23,15 +30,24 @@
 	 <form id="form" action='/index' method='emit'>
 		  Name: <input type='text' name='name'><br>
 		  Dojo Location: <select name="location">
-		  		<option value="sb">San Bernadino</option>
-				<option value="la">Los Angeles</option>
-				<option value="mo">Monterey</option>
-				<option value="se">Seattle</option>
-				<option value="vz">Caracas</option>
+		  		<option value="SanBernadino">San Bernadino</option>
+				<option value="LosAngeles">Los Angeles</option>
+				<option value="Monterey">Monterey</option>
+				<option value="Seattle">Seattle</option>
+				<option value="Caracas">Caracas</option>
 		  </select><br>
+		  Dojo LANGUAGE: <select name="language">
+			  <option value="python">Pythono</option>
+			  <option value="ruby">Ruby</option>
+			  <option value="etc">Other</option>
+			  <option value="mean">MEAN</option>
+			  <option value="javascript">JS</option>
+		 </select><br>
 		  Comment: <textarea name="comment" rows="8" cols="40"></textarea>
 		  <input type='submit' value='Submit'>
 	 </form>
+	 <div class="response">
 
+	 </div>
 </body>
 </html>

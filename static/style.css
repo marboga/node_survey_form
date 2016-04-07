@@ -1,0 +1,11 @@
+* {
+	font-family: monaco;
+}
+
+.response {
+	min-height: 0px;
+	width: 50%;
+	text-align: left;
+	background-color: silver;
+	border: 20px solid red;
+}
